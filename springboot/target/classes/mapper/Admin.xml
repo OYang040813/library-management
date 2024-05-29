@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.springboot.mapper.AdminMapper">
+
+    <insert id="save">
+        insert into admin(name, keynum, cardnum)
+        values(#{name}, #{keynum}, #{cardnum})
+    </insert>
+
+    <update id="updateById">
+        update admin set keynum = #{keynum},cardnum = #{cardnum}, updatetime = #{updatetime}, status = #{status}
+                    where id = #{id}
+    </update>
+
+    <update id="updateKeynum">
+        update admin set keynum = #{newkeynum} where name = #{name} and keynum = #{keynum}
+    </update>
+
+    <delete id="deleteById">
+        delete from admin where id = #{id}
+    </delete>
+
+    <select id="list" resultType="com.example.springboot.entity.Admin">
+        select * from admin
+    </select>
+
+    <select id="listByCondition" resultType="com.example.springboot.entity.Admin">
+        select * from admin
+            <where>
+                <if test="name != null and name != ''">
+                    name like concat('%',#{name},'%')
+                </if>
+                <if test="cardnum != null and cardnum != ''">
+                    cardnum like concat('%',#{cardnum}, '%')
+                </if>
+            </where>
+        order by id desc
+    </select>
+    <select id="getById" resultType="com.example.springboot.entity.Admin">
+        select * from admin where id = #{id}
+    </select>
+
+    <select id="getByNameAndKeynum" resultType="com.example.springboot.entity.Admin">
+        select * from admin where name = #{name} and keynum = #{keynum}
+    </select>
+
+    <select id="getByName" resultType="com.example.springboot.entity.Admin">
+        select * from admin where name = #{name}
+    </select>
+
+</mapper>

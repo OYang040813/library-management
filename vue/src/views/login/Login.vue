@@ -107,15 +107,9 @@ export default {
     },
 
     onSuccess(){ //滑块验证成功后触发（回调函数）
-<<<<<<< HEAD
       Cookies.set('admin', JSON.stringify(this.loginAdmin))
       this.$notify.success('登陆成功')
       this.$router.push('/')
-=======
-      // Cookies.set('admin', JSON.stringify(this.loginAdmin))
-      // this.$notify.success('登陆成功')
-      // this.$router.push('/')
->>>>>>> origin/main
     },
 
     onFail(){

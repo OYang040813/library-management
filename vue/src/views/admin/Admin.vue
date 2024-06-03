@@ -122,11 +122,7 @@ import Cookies from "js-cookie";
 
 export default {
   name: 'MyAdmin',
-  computed: {
-    EditAdmin() {
-      return EditAdmin
-    }
-  },
+
   data(){
     return{
 

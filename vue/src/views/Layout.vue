@@ -47,7 +47,7 @@
               <i class="el-icon-tickets"></i>
               <span>成员管理</span>
             </template>
-            <el-menu-item index="myuser">成员列表</el-menu-item>
+            <el-menu-item index="myUser">成员列表</el-menu-item>
             <el-menu-item index="addUser">成员添加</el-menu-item>
           </el-submenu>
 
@@ -56,8 +56,17 @@
               <i class="el-icon-user"></i>
               <span>管理员管理</span>
             </template>
-            <el-menu-item index="myadmin">管理员列表</el-menu-item>
+            <el-menu-item index="myAdmin">管理员列表</el-menu-item>
             <el-menu-item index="addAdmin">管理员添加</el-menu-item>
+          </el-submenu>
+
+          <el-submenu index="Category">
+            <template slot="title">
+              <i class="el-icon-s-operation"></i>
+              <span>分类管理</span>
+            </template>
+            <el-menu-item index="myCategory">分类列表</el-menu-item>
+            <el-menu-item index="addCategory">分类添加</el-menu-item>
           </el-submenu>
 
         </el-menu>

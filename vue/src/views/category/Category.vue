@@ -20,7 +20,7 @@
 
 <!--    表格表头-->
     <el-table :data="tableData" stripe>
-      <el-table-column prop="id" label="id卡号" width="60px"></el-table-column>
+      <el-table-column prop="id" label="编号" width="60px"></el-table-column>
       <el-table-column prop="name" label="虚拟名" width="80px"></el-table-column>
       <el-table-column prop="remark" label="备注"></el-table-column>
       <el-table-column prop="createtime" label="创建时间"></el-table-column>
@@ -43,9 +43,9 @@
       <el-table-column label="操作" width="230px">
         <template v-slot="scope" >
 <!--            scope.row为当前行数据-->
-          <el-button type="primary" @click="$router.push('/editAdmin?id=' + scope.row.id)">编辑</el-button>
+          <el-button type="primary" @click="$router.push('/editCategory?id=' + scope.row.id)">编辑</el-button>
 
-<!--          删除用户-->
+<!--          删除-->
           <el-popconfirm
               style="margin-left: 7px"
               confirm-button-text='确认'
@@ -75,73 +75,24 @@
       </el-pagination>
     </div>
 <!--    分页组件结束-->
-
-<!--    对话框组件开始-->
-    <el-dialog title="修改密码" :visible.sync="dialogFormVisible" width="30%">
-      <el-form :inline="true" :model="form" label-width="100px" ref="keynumRef" :rules="rules">
-        <el-form-item label="旧密码" prop="keynum">
-          <el-input v-model="form.keynum" placeholder="请输入旧密码" show-password></el-input>
-        </el-form-item>
-        <el-form-item label="新密码" prop="newkeynum">
-          <el-input v-model="form.newkeynum" placeholder="请输入新密码" show-password></el-input>
-        </el-form-item>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click="dialogFormVisible = false">取 消</el-button>
-        <el-button type="primary" @click="saveKeynum">确 定</el-button>
-      </div>
-    </el-dialog>
-<!--对话框组件结束-->
-
   </div>
 </template>
 
-
-
-
-
-
 <script>
 import request from "@/utils/request";
-import EditAdmin from "@/views/admin/EditAdmin.vue";
-import Cookies from "js-cookie";
 
 export default {
   name: 'MyCategory',
-  computed: {
-    EditCategory() {
-      return EditCategory
-    }
-  },
   data(){
     return{
 
-      admin: Cookies.get('admin') ? JSON.parse(Cookies.get('admin')) : {},
       tableData: [],
       total:0,
 
-      dialogFormVisible: false,
       params:{
         pageNum:1,
         pageSize:7,
         name:'',
-        cardnum:''
-      },
-      rules: {
-        keynum: [
-          {required: true, message: '请正确输入旧密码', trigger: 'blur'},
-          {min: 6, max: 12, message: '请正确输入旧密码', trigger: 'blur'}
-        ],
-        newkeynum: [
-          {required: true, message: '新密码不能为空', trigger: 'blur'},
-          {min: 6, max: 12, message: '长度在6到12个字符', trigger: 'blur'}
-        ],
-      },
-      form:{
-        name:'',
-        keynum:'',
-        newkeynum:'',
-        id:'',
       },
     }
   },
@@ -154,8 +105,7 @@ export default {
 
     // 函数1：根据已有参数加载页面
     load(){
-
-      request.get('/admin/page',{params : this.params}).then(res => {
+      request.get('/category/page',{params : this.params}).then(res => {
         if(res.code === '200'){
           this.tableData = res.data.list
           this.total = res.data.total
@@ -169,13 +119,6 @@ export default {
         pageNum:1,
         pageSize:7,
         name:'',
-        cardnum:''
-      }
-      this.form = {
-        name:'',
-        keynum:'',
-        newkeynum:'',
-        id:'',
       }
       this.load();
     },
@@ -188,7 +131,7 @@ export default {
 
     // 函数4：删除数据
     del(id){
-      request.delete("/admin/delete/" + id).then(res =>{
+      request.delete("/category/delete/" + id).then(res =>{
         if(res.code === '200'){
           this.$notify.success("删除成功")
           this.load()//调用刷新函数
@@ -196,62 +139,6 @@ export default {
           this.$notify.error(res.msg)
         }
       })
-    },
-
-    //函数5：修改密码
-    HandleChangeKeynum(id,name){
-      this.form.id = JSON.parse(JSON.stringify(id))
-      this.form.name = JSON.parse(JSON.stringify(name))
-      this.dialogFormVisible = true;
-    },
-
-    //函数6：保存新密码
-    saveKeynum(){
-      this.$refs["keynumRef"].validate((valid) => {
-        if (valid) {
-          request.put('/admin/keynum', this.form).then(res => {
-            if (res.code === '200') {
-              this.$notify.success("修改成功")
-              if (this.form.id === this.admin.id){ //当前修改的账号为用户本身账号
-                Cookies.remove('admin')
-                this.$router.push('/login')
-              }else{
-                this.reset();
-                this.dialogFormVisible = false
-              }
-            } else {
-              this.$notify.error("修改失败")
-            }
-          })
-        } else {
-          this.$message.error('请正确填入用户名与密码！')
-        }
-      });
-    },
-
-    //函数7：更改状态
-    changeStatus(row){
-      let admin = Cookies.get('admin') ? JSON.parse(Cookies.get('admin')) : {}
-      if(row.id === 1){
-        this.$notify.warning('权限不足')
-        this.reset()
-      }else if (admin.id === 1){
-        request.put('/admin/update', row).then(res =>{
-          if (res.code === '200'){
-            if (row.status){
-              this.$notify.success('启用成功')
-            }else{
-              this.$notify.success('禁用成功')
-            }
-            this.reset()
-          } else{
-            this.$notify.error(res.msg)
-          }
-        });
-      }else{
-        this.$notify.warning('权限不足')
-        this.reset()
-      }
     },
   }
 }

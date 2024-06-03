@@ -22,59 +22,30 @@ const routes = [
     redirect: '/home',
     children:[  //子路由
 
-      {
-        path: 'home',
-        name: 'Home',
-        component: () => import('@/views/home/HomeView.vue')
-      },
+      //网页主页
+      { path: 'home', name: 'Home', component: () => import('@/views/home/HomeView.vue')},
 
       //用户User
-      {
-        path: 'myuser',
-        name: 'MyUser',
-        component: () => import('@/views/user/User.vue')
-      },
-
-      {
-        path: 'addUser',
-        name: 'AddUser',
-        component: () => import('@/views/user/AddUser.vue')
-      },
-
-      {
-        path: 'editUser',
-        name: 'EditUser',
-        component: () => import('@/views/user/EditUser.vue')
-      },
+      { path: 'myUser', name: 'MyUser', component: () => import('@/views/user/User.vue')},
+      { path: 'addUser', name: 'AddUser', component: () => import('@/views/user/AddUser.vue')},
+      { path: 'editUser', name: 'EditUser', component: () => import('@/views/user/EditUser.vue')},
 
       //管理员Admin
-      {
-        path: 'myadmin',
-        name: 'MyAdmin',
-        component: () => import('@/views/admin/Admin.vue')
-      },
+      { path: 'myAdmin', name: 'MyAdmin', component: () => import('@/views/admin/Admin.vue')},
+      { path: 'addAdmin', name: 'AddAdmin', component: () => import('@/views/admin/AddAdmin.vue')},
+      { path: 'editAdmin', name: 'EditAdmin', component: () => import('@/views/admin/EditAdmin.vue')},
 
-      {
-        path: 'addAdmin',
-        name: 'AddAdmin',
-        component: () => import('@/views/admin/AddAdmin.vue')
-      },
-
-      {
-        path: 'editAdmin',
-        name: 'EditAdmin',
-        component: () => import('@/views/admin/EditAdmin.vue')
-      },
+      //分类Category
+      { path: 'myCategory', name: 'MyCategory', component: () => import('@/views/category/Category.vue')},
+      { path: 'addCategory', name: 'AddCategory', component: () => import('@/views/category/AddCategory.vue')},
+      { path: 'editCategory', name: 'EditCategory', component: () => import('@/views/category/EditCategory.vue')},
 
     ]
+
   },
 
-    // ==== 404界面 ===
-  {
-    path:'*',
-    name: '404',
-    component: () => import('@/views/404.vue')
-  }
+  // ==== 404界面 ===
+  { path:'*', name: '404', component: () => import('@/views/404.vue')}
 ]
 
 

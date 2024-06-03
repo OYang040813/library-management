@@ -1,18 +1,18 @@
 <template>
   <div style="height: 100vh; overflow: hidden; position: relative">
 
-    <el-card v-if="loginAdmin.id" style="background-color: white; position: absolute; top: 50%; width: fit-content;
-    left: 50%; transform: translate(-50%, -50%); z-index: 1000;">
-      <slide-verify :l="42"
-                      :r="10"
-                      :w="310"
-                      :h="155"
-                      slider-text="向右滑动"
-                      @success="onSuccess"
-                      @fail="onFail"
-                      @refresh="onRefresh"
-      ></slide-verify>
-    </el-card>
+<!--    <el-card v-if="loginAdmin.id" style="background-color: white; position: absolute; top: 50%; width: fit-content;-->
+<!--    left: 50%; transform: translate(-50%, -50%); z-index: 1000;">-->
+<!--      <slide-verify :l="42"-->
+<!--                      :r="10"-->
+<!--                      :w="310"-->
+<!--                      :h="155"-->
+<!--                       slider-text="向右滑动"-->
+<!--                      @success="onSuccess"-->
+<!--                      @fail="onFail"-->
+<!--                      @refresh="onRefresh"-->
+<!--      ></slide-verify>-->
+<!--    </el-card>-->
 
     <div style="width: 500px; height: 400px;background-color: white; border-radius: 10px;
     margin: 95px auto; padding: 50px">
@@ -106,19 +106,19 @@ export default {
       this.$refs["loginForm"].resetFields();
     },
 
-    onSuccess(){ //滑块验证成功后触发（回调函数）
-      Cookies.set('admin', JSON.stringify(this.loginAdmin))
-      this.$notify.success('登陆成功')
-      this.$router.push('/')
-    },
-
-    onFail(){
-
-    },
-
-    onRefresh(){
-      console.log('refresh')
-    },
+    // onSuccess(){ //滑块验证成功后触发（回调函数）
+    //   Cookies.set('admin', JSON.stringify(this.loginAdmin))
+    //   this.$notify.success('登陆成功')
+    //   this.$router.push('/')
+    // },
+    //
+    // onFail(){
+    //
+    // },
+    //
+    // onRefresh(){
+    //   console.log('refresh')
+    // },
 
   }
 }

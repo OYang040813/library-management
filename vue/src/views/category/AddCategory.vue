@@ -2,19 +2,19 @@
 
   <div style="width: 80%">
 
-    <div style="height: 180px; width: 1000px; background-color: gray; margin-bottom: 80px">
-      <h2 style="color: white; line-height: 160px ;margin-left: 50px; cursor: pointer">新增管理员</h2>
+    <div style="height: 180px; width: 1000px; background-color: rgba(222,65,255,0.35); margin-bottom: 80px">
+      <h2 style="color: white; line-height: 160px ;margin-left: 50px; cursor: pointer">新增分类</h2>
     </div>
 
 
     <el-form :inline="true" :model="form" :rules="rules" ref="ruleForm" label-width="130px" size="medium">
 
-      <el-form-item label="虚拟名" prop="name">
-        <el-input v-model="form.name" placeholder="请输入管理员虚拟名"></el-input>
+      <el-form-item label="名称" prop="name">
+        <el-input v-model="form.name" placeholder="请输入分类名称"></el-input>
       </el-form-item>
 
-      <el-form-item label="密码" style="margin-left: 95px" prop="keynum">
-        <el-input v-model="form.keynum" placeholder="请输入管理员验证密码" show-password minlength="1"></el-input>
+      <el-form-item label="备注" style="margin-left: 95px" prop="remark">
+        <el-input v-model="form.remark" placeholder="请输入分类备注"></el-input>
       </el-form-item>
 
     </el-form>
@@ -40,25 +40,22 @@ import request from "@/utils/request";
 export default {
   name: "AddCategory",
   data() {
-
     return{
 
       rules: {
         name: [
-          {required: true, message: '请输入虚拟名', trigger: 'blur'},
+          {required: true, message: '名称不能为空', trigger: 'blur'},
           {min: 2, max: 16, message: '长度在2到16个字符', trigger: 'blur'}
         ],
-        keynum: [
-          {required: true, message: '密码不能为空', trigger: 'blur'},
-          {min: 6, max: 12, message: '长度在6到12个字符', trigger: 'blur'}
+        remark: [
+          {max: 20, message: '长度不能超过20个字符', trigger: 'blur'}
         ],
       },
 
       form:{
         id: '',
         name: '',
-        keynum: '',
-        cardnum:''
+        remark: '',
       }
     }
   },
@@ -67,7 +64,7 @@ export default {
     save(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          request.post('/admin/save', this.form).then(res => {
+          request.post('/category/save', this.form).then(res => {
             if (res.code === '200') {
               this.$notify.success('新增成功')
               this.$refs[formName].resetFields()

@@ -2,6 +2,7 @@ package com.example.springboot.controller;
 
 import com.example.springboot.common.Result;
 import com.example.springboot.controller.request.AdminPageRequest;
+import com.example.springboot.controller.request.CategoryPageRequest;
 import com.example.springboot.entity.Category;
 import com.example.springboot.service.ICategorySevice;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -49,7 +50,7 @@ public class CategoryController {
     }
 
     @GetMapping("/page")
-    public Result page(AdminPageRequest pageRequest){
+    public Result page(CategoryPageRequest pageRequest){
         return Result.success(categorySevice.page(pageRequest));
     }
 }

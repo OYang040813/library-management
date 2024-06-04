@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class Category {
@@ -16,4 +17,6 @@ public class Category {
     private Date createtime;
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
     private Date updatetime;
+
+    private List<Category> children;
 }

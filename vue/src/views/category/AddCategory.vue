@@ -3,7 +3,7 @@
   <div style="width: 80%">
 
     <div style="height: 180px; width: 1000px; background-color: rgba(222,65,255,0.35); margin-bottom: 80px">
-      <h2 style="color: white; line-height: 160px ;margin-left: 50px; cursor: pointer">新增分类</h2>
+      <h2 style="color: white; line-height: 160px ;margin-left: 50px; cursor: pointer">新增一级分类</h2>
     </div>
 
 

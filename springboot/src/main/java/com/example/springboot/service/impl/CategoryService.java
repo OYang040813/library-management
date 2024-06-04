@@ -43,6 +43,7 @@ public class CategoryService implements ICategorySevice {
     @Override
     public PageInfo<Category> page(BaseRequest baseRequest) {
         PageHelper.startPage(baseRequest.getPageNum(), baseRequest.getPageSize());
+        //自关联查询（id、pid存在关联关系）
         List<Category> categories = categoryMapper.listByCondition(baseRequest);
         return new PageInfo<>(categories);
     }

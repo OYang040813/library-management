@@ -66,7 +66,7 @@
               <span>分类管理</span>
             </template>
             <el-menu-item index="myCategory">分类列表</el-menu-item>
-            <el-menu-item index="addCategory">分类添加</el-menu-item>
+            <el-menu-item index="addCategory">一级分类添加</el-menu-item>
           </el-submenu>
 
         </el-menu>

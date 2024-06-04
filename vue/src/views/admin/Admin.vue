@@ -147,6 +147,7 @@ export default {
           {min: 6, max: 12, message: '长度在6到12个字符', trigger: 'blur'}
         ],
       },
+      pid: null,
       form:{
         name:'',
         keynum:'',

@@ -7,7 +7,7 @@
 
     <insert id="save">
         insert into user(name,phone,email,sex,keynum,age,address,cardnum)
-        values(#{name}, #{phone}, #{email}, #{sex}, #{keynum}, #{age}, #{address} , #{cardnum})
+        values(#{name}, #{phone}, #{email}, #{sex}, #{keynum}, #{age}, #{address}, #{cardnum})
     </insert>
 
     <update id="updateById">

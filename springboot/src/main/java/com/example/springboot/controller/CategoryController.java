@@ -49,6 +49,12 @@ public class CategoryController {
         return Result.success(list);
     }
 
+    @GetMapping("/tree")
+    public Result tree(){
+        List<Category> tree = categorySevice.tree();
+        return Result.success(tree);
+    }
+
     @GetMapping("/page")
     public Result page(CategoryPageRequest pageRequest){
         return Result.success(categorySevice.page(pageRequest));

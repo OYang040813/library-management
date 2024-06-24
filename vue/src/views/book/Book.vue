@@ -4,7 +4,7 @@
 <!--    搜索组件-->
     <div>
       <el-input style="width: 240px" placeholder="请输入书籍名称" v-model="params.name"></el-input>
-      <el-input style="width: 240px" placeholder="请输入书号" v-model="params.bookNo"></el-input>
+      <el-input style="width: 240px; margin-left: 5px" placeholder="请输入书号" v-model="params.bookNo"></el-input>
 
       <el-button style="margin-left: 5px" type="primary" @click="load">
         <i class="el-icon-search"></i>
@@ -21,21 +21,24 @@
 
 <!--    表格表头-->
     <el-table :data="tableData" stripe row-key="id" default-expand-all>
-      <el-table-column prop="id" label="编号" width="100"></el-table-column>
+      <el-table-column prop="id" label="id" width="40"></el-table-column>
       <el-table-column prop="name" label="图书名"></el-table-column>
-      <el-table-column prop="description" label="描述"></el-table-column>
-      <el-table-column prop="publishDate" label="出版日期"></el-table-column>
+<!--      <el-table-column prop="description" label="描述"></el-table-column>-->
+      <el-table-column prop="publishDate" label="出版日期" width="90"></el-table-column>
       <el-table-column prop="author" label="作者"></el-table-column>
       <el-table-column prop="publisher" label="出版商"></el-table-column>
-      <el-table-column prop="book" label="分类"></el-table-column>
-      <el-table-column prop="bookNo" label="书号"></el-table-column>
-      <el-table-column prop="cover" label="封面"></el-table-column>
-      <el-table-column prop="createtime" label="创建时间"></el-table-column>
-      <el-table-column prop="updatetime" label="更新时间"></el-table-column>
+      <el-table-column prop="category" label="分类" width="80"></el-table-column>
+      <el-table-column prop="bookNo" label="书号" width="80"></el-table-column>
+      <el-table-column prop="cover" label="封面">
+        <template v-slot="scope">
+          <el-image :src="scope.row.cover" :preview-src-list="[scope.row.cover]"></el-image>
+        </template>
+      </el-table-column>
+      <el-table-column prop="createtime" label="创建时间" width="90"></el-table-column>
+      <el-table-column prop="updatetime" label="更新时间" width="90"></el-table-column>
 
-      <el-table-column label="操作" width="260px">
+      <el-table-column label="操作" width="160px">
         <template v-slot="scope" ><!--scope.row为当前行数据-->
-          <el-button type="success" v-if="!scope.row.pid" @click="HandleAdd(scope.row)">添加二级分类</el-button>
           <el-button type="primary" @click="$router.push('/editBook?id=' + scope.row.id)">编辑</el-button>
           <el-popconfirm
               style="margin-left: 7px"
@@ -98,27 +101,12 @@ export default {
       tableData: [],
       total:0,
 
-      dialogFormVisible: false,
-
       params:{
         pageNum:1,
         pageSize:7,
         name:'',
         bookNo:'',
       },
-
-      rules: {
-        name: [
-          {required: true, message: '二级分类名称不能为空', trigger: 'blur'},
-        ],
-        remark: [
-          {max: 50, message: '长度不能超过50个字符', trigger: 'blur'}
-        ],
-      },
-
-      pid:'',
-
-      form:{},
 
     }
   },

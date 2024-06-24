@@ -69,6 +69,15 @@
             <el-menu-item index="addCategory">一级分类添加</el-menu-item>
           </el-submenu>
 
+          <el-submenu index="Book">
+            <template slot="title">
+              <i class="el-icon-notebook-1"></i>
+              <span>图书管理</span>
+            </template>
+            <el-menu-item index="myBook">图书列表</el-menu-item>
+            <el-menu-item index="addBook">图书添加</el-menu-item>
+          </el-submenu>
+
         </el-menu>
       </div>
       <!--侧边栏导航结束-->

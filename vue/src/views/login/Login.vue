@@ -106,19 +106,19 @@ export default {
       this.$refs["loginForm"].resetFields();
     },
 
-    // onSuccess(){ //滑块验证成功后触发（回调函数）
-    //   Cookies.set('admin', JSON.stringify(this.loginAdmin))
-    //   this.$notify.success('登陆成功')
-    //   this.$router.push('/')
-    // },
-    //
-    // onFail(){
-    //
-    // },
-    //
-    // onRefresh(){
-    //   console.log('refresh')
-    // },
+    onSuccess(){ //滑块验证成功后触发（回调函数）
+      Cookies.set('admin', JSON.stringify(this.loginAdmin))
+      this.$notify.success('登陆成功')
+      this.$router.push('/')
+    },
+
+    onFail(){
+
+    },
+
+    onRefresh(){
+      console.log('refresh')
+    },
 
   }
 }

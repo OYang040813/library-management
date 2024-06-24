@@ -7,7 +7,7 @@
     </div>
 
 
-    <el-form :inline="true" :model="form" :rules="rules" ref="ruleForm" label-width="180px" size="medium">
+    <el-form :inline="true" :model="form" :rules="rules" ref="ruleForm" label-width="170px" size="medium">
 
       <el-form-item label="编号">
         <el-input v-model="form.id" disabled></el-input>
@@ -17,8 +17,38 @@
         <el-input v-model="form.name" placeholder="请编辑分类名称"></el-input>
       </el-form-item>
 
-      <el-form-item label="备注" prop="remark">
-        <el-input v-model="form.remark" placeholder="请编辑分类备注"></el-input>
+      <el-form-item label="书号" prop="bookNo">
+        <el-input style="width: 220px" v-model="form.bookNo" placeholder="请输入书号"></el-input>
+      </el-form-item>
+
+      <el-form-item label="出版日期" prop="publishDate">
+        <el-date-picker
+            style="width: 210px"
+            v-model="form.publishDate"
+            type="datetime"
+            value-format="yyyy-MM-dd"
+            placeholder="请选择出版日期">
+        </el-date-picker>
+      </el-form-item>
+
+      <el-form-item label="出版商" prop="publisher">
+        <el-input style="width: 220px" v-model="form.publisher" placeholder="请输入出版商"></el-input>
+      </el-form-item>
+
+      <el-form-item label="作者" prop="author">
+        <el-input style="width: 210px" v-model="form.author" placeholder="请输入作者"></el-input>
+      </el-form-item>
+
+      <el-form-item label="分类" prop="category">
+        <el-input style="width: 220px;" v-model="form.category" placeholder="请选择所属分类"></el-input>
+      </el-form-item>
+
+      <el-form-item label="封面" prop="cover">
+        <el-input style="width: 610px" v-model="form.cover" placeholder="请输入封面链接"></el-input>
+      </el-form-item>
+
+      <el-form-item label="图书描述" prop="description">
+        <el-input style="width: 610px" type="textarea" v-model="form.description" placeholder="请输入图书描述"></el-input>
       </el-form-item>
 
     </el-form>
@@ -42,24 +72,43 @@
 import request from "@/utils/request";
 
 export default {
-  name: "EditCategory",
+  name: "EditBook",
   data() {
     return{
 
       rules: {
         name: [
-          {required: true, message: '名称不能为空', trigger: 'blur'},
-          {min: 2, max: 16, message: '长度在2到16个字符', trigger: 'blur'}
+          {required: true, message: '书名不能为空', trigger: 'blur'},
+          {min: 2, max: 16, message: '长度在2到20个字符', trigger: 'blur'}
         ],
-        remark: [
-          {max: 20, message: '长度不能超过20个字符', trigger: 'blur'}
+        publishDate: [
+          {required: true, message: '请输入出版日期', trigger: 'blur'}
+        ],
+        author: [
+          {required: true, message: '请输入作者', trigger: 'blur'}
+        ],
+        publisher: [
+          {required: true, message: '请输入出版商', trigger: 'blur'}
+        ],
+        category: [
+          {required: true, message: '请选择所属分类', trigger: 'blur'}
+        ],
+        bookNo: [
+          {required: true, message: '书号不能为空', trigger: 'blur'},
+          {min: 6, max: 12, message: '长度在2到20个字符', trigger: 'blur'}
         ],
       },
 
       form:{
         id: '',
         name: '',
-        remark: '',
+        description: '',
+        publishDate: '',
+        author: '',
+        publisher: '',
+        category: '',
+        bookNo: '',
+        cover: '',
       }
     }
   },
@@ -72,7 +121,7 @@ export default {
 
     init(){
       const id = this.$route.query.id
-      request.get("/category/" + id).then(res =>{
+      request.get("/book/" + id).then(res =>{
         this.form = res.data;
       })
     },
@@ -80,10 +129,10 @@ export default {
     update(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          request.put('/category/update', this.form).then(res =>{
+          request.put('/book/update', this.form).then(res =>{
             if (res.code === '200'){
               this.$notify.success('更新成功')
-              this.$router.push("/mycategory")
+              this.$router.push("/mybook")
             } else{
               this.$notify.error(res.msg)
             }

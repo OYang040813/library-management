@@ -13,7 +13,7 @@
         <el-input v-model="form.name" placeholder="请输入管理员虚拟名"></el-input>
       </el-form-item>
 
-      <el-form-item label="密码" style="margin-left: 95px" prop="keynum">
+      <el-form-item label="密码" style="margin-left: 85px" prop="keynum">
         <el-input v-model="form.keynum" placeholder="请输入管理员验证密码" show-password minlength="1"></el-input>
       </el-form-item>
 

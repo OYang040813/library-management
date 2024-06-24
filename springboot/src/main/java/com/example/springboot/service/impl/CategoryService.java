@@ -23,8 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Slf4j
 @Service
@@ -52,9 +54,9 @@ public class CategoryService implements ICategorySevice {
     public void save(Category obj) {
 
         Category category = categoryMapper.getByName(obj.getName());
-        if (category==null){
+        if (category == null) {
             categoryMapper.save(obj);
-        }else{
+        } else {
             throw new ServiceException("该分类已被占用");
         }
     }
@@ -74,4 +76,26 @@ public class CategoryService implements ICategorySevice {
     public void deleteById(Integer id) {
         categoryMapper.deleteById(id);
     }
+
+    @Override
+    public List<Category> tree() {
+        List<Category> list = categoryMapper.list();
+
+        return createTree(null, list);
+    }
+
+    /**
+     * 完全递归生成菜单树
+     */
+    private List<Category> createTree(Integer pid, List<Category> categories) {
+        List<Category> treelist = new ArrayList<>();
+        for (Category category : categories) {
+            if (pid.equals(category.getPid())) {
+                treelist.add(category);
+                category.setChildren(createTree(category.getId(), categories));
+            }
+        }
+        return treelist;
+    }
+    
 }

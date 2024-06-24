@@ -19,4 +19,6 @@ public interface ICategorySevice {
     void update(Category obj);
 
     void deleteById(Integer id);
+
+    List<Category> tree();
 }

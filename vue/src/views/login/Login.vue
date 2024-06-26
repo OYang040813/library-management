@@ -39,9 +39,6 @@
                 <el-button type="primary" @click="login" size="medium">登录<i class="el-icon-upload el-icon--right"></i>
             </el-button>
 
-            <el-button type="danger" @click="reset" size="medium">重置<i class="el-icon-upload el-icon--right"></i>
-            </el-button>
-
           </el-form-item>
         </div>
 

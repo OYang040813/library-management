@@ -105,7 +105,6 @@ export default {
 
     // 函数1：根据已有参数加载页面
     load(){
-
       request.get('/user/page',{params : this.params}).then(res => {
         if(res.code === '200'){
           this.tableData = res.data.list
